@@ -25,13 +25,20 @@ if (codePoints < 1 || codePoints > 280) {
 if (poem.trim().length === 0) {
   throw new Error('poem must not be only whitespace');
 }
+// A poem is more than one line: require at least two non-empty lines.
+const lines = poem.split('\n').filter((line) => line.trim().length > 0);
+if (lines.length < 2) {
+  throw new Error('poem must have at least two non-empty lines');
+}
 
 mkdirSync(outDir, { recursive: true });
 const outPath = `${outDir}/entry.txt`;
 writeFileSync(outPath, poem, 'utf8');
 
+// Read the output back and verify it byte-for-byte: same text and same
+// UTF-8 byte length, so no encoding or newline translation slipped in.
 const back = readFileSync(outPath, 'utf8');
-if (back !== poem) {
+if (back !== poem || Buffer.byteLength(back, 'utf8') !== Buffer.byteLength(poem, 'utf8')) {
   throw new Error('entry.txt read-back mismatch');
 }
-console.log(`wrote ${outPath} (${codePoints} code points)`);
+console.log(`wrote ${outPath} (${codePoints} code points, ${lines.length} lines)`);
