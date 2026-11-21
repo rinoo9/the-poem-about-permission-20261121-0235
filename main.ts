@@ -8,12 +8,12 @@ import { writeFileSync, mkdirSync, readFileSync } from 'node:fs';
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-const poem = `I asked, and the door learned my name.
-Not a knock, but a key —
-a small yes, practiced daily,
-until the room rearranged itself
-around the sound of being allowed.
-Ask. The world is listening
+const poem = `The door had never heard my name.
+I said it once, then once more,
+and the lock gave way like weather.
+A small yes, practiced daily,
+until the whole house leaned in.
+Ask — the world is listening
 for the part of you that dares
 to be given.`;
 
